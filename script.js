@@ -15,8 +15,8 @@ function divide(a, b) {
   return a / b;
 }
 
-const firstOperand = 0;
-const secondOperand = 0;
+let firstOperand = 0;
+let secondOperand = 0;
 const operator = '';
 
 const operate = (a, b, operation) => {
@@ -50,3 +50,15 @@ function displayResult(result) {
 
   displayScreen.textContent = result;
 }
+
+const operands = [...document.querySelectorAll('.operand')];
+const operators = [...document.querySelectorAll('.operator')];
+
+operands.map((operand) => {
+  operand.addEventListener('click', (e) => {
+    if (!secondOperand) {
+      firstOperand = +e.target.textContent;
+    }
+    secondOperand = +e.target.textContent;
+  });
+});
