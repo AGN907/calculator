@@ -15,13 +15,24 @@ function divide(a, b) {
   return a / b;
 }
 
-let firstOperand = 0;
-let secondOperand = 0;
-const operator = '';
+const operation = {
+  firstOperand: '',
+  secondOperand: '',
+  operator: '',
+};
 
-const operate = (a, b, operation) => {
+const operate = (operation) => {
+  const a = operation.firstOperand;
+  const { operator } = operation;
+  let b = operation.secondOperand;
+
+  // ** If client didn't specify second operand
+  if (!b) {
+    b = a;
+  }
+
   let result = 0;
-  switch (operation) {
+  switch (operator) {
     case '+':
       result = add(a, b);
       break;
@@ -46,19 +57,17 @@ const operate = (a, b, operation) => {
 };
 
 function displayResult(result) {
-  const displayScreen = document.querySelector('calculator-display');
+  const displayScreen = document.querySelector('.calculator-display');
 
   displayScreen.textContent = result;
+  return result;
 }
 
-const operands = [...document.querySelectorAll('.operand')];
-const operators = [...document.querySelectorAll('.operator')];
+const equalBtn = document.querySelector('#equal');
 
-operands.map((operand) => {
-  operand.addEventListener('click', (e) => {
-    if (!secondOperand) {
-      firstOperand = +e.target.textContent;
-    }
-    secondOperand = +e.target.textContent;
-  });
+equalBtn.addEventListener('click', (e) => {
+  const clickedOperator = document.querySelector('.clicked');
+  clickedOperator.classList.remove('clicked');
+  const result = operate(operation);
+  displayResult(result);
 });
