@@ -44,3 +44,9 @@ const operate = (a, b, operation) => {
 
   return result;
 };
+
+function displayResult(result) {
+  const displayScreen = document.querySelector('calculator-display');
+
+  displayScreen.textContent = result;
+}
