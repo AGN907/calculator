@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="calculator">
@@ -13,31 +14,31 @@
         <div class="calculator-main">
             <div class="first-row">
                 <button id="clear" class="calc-item">AC</button>
-                <button id="numeric-type" class="calc-item">+<sub>/-</sub></button>
-                <button id="reminder" class="calc-item">%</button>
-                <button name="operator" class="calc-item">/</button>
+                <button id="numeric-type" class="calc-item operator">+<sub>/-</sub></button>
+                <button id="reminder" class="calc-item operator">%</button>
+                <button name="operator" class="calc-item operator">/</button>
             </div>
             <div class="second-row">
-                <button class="calc-item">9</button>
-                <button class="calc-item">8</button>
-                <button class="calc-item">7</button>
-                <button name="operator" class="calc-item">*</button>
+                <button class="calc-item operand">9</button>
+                <button class="calc-item operand">8</button>
+                <button class="calc-item operand">7</button>
+                <button name="operator" class="calc-item operator">*</button>
             </div>
             <div class="third-row">
-                <button class="calc-item">6</button>
-                <button class="calc-item">5</button>
-                <button class="calc-item">4</button>
-                <button name="operator" class="calc-item">+</button>                
+                <button class="calc-item operand">6</button>
+                <button class="calc-item operand">5</button>
+                <button class="calc-item operand">4</button>
+                <button name="operator" class="calc-item operator">+</button>                
             </div>
             <div class="fourth-row">
-                <button class="calc-item">3</button>
-                <button class="calc-item">2</button>
-                <button class="calc-item">1</button>
-                <button name="operator" class="calc-item">-</button>                
+                <button class="calc-item operand">3</button>
+                <button class="calc-item operand">2</button>
+                <button class="calc-item operand">1</button>
+                <button name="operator" class="calc-item operator">-</button>                
             </div>
             <div class="fifth-row">
-                <button class="calc-item">0</button>
-                <button class="calc-item">.</button>
+                <button class="calc-item operand">0</button>
+                <button class="calc-item operand">.</button>
                 <button id="equal" class="calc-item">=</button>
             </div>
         </div>
