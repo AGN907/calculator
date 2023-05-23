@@ -5,19 +5,19 @@ This project will demonstrate these following skills:
 
 ## HTML
 
--Classes and IDs
--Buttons
--Divs
+- Classes and IDs
+- Buttons
+- Divs
 
 ## CSS
 
--Colors
--Flex-box
--Nested Flex-box
+- Colors
+- Flex-box
+- Nested Flex-box
 
 ## Javascript
 
--Functions and Arrow functions
--Events listeners
--DOM manipulation
--Conditional logic
+- Functions and Arrow functions
+- Events listeners
+- DOM manipulation
+- Conditional logic
