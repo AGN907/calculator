@@ -84,6 +84,15 @@ operands.forEach((operand) => {
   operand.addEventListener('click', findOperands);
 });
 
+// Clear all variables and display default result
+clearBtn.addEventListener('click', () => {
+  const keys = Object.keys(operation);
+  keys.forEach((key) => {
+    operation[key] = '';
+  });
+  displayResult(0);
+});
+
 equalBtn.addEventListener('click', (e) => {
   const result = operate(operation);
   displayResult(result);
