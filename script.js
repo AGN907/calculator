@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
 function add(a, b) {
   return a + b;
 }
@@ -55,6 +57,43 @@ function displayResult(result) {
   displayScreen.textContent = operationResult;
 }
 
+function getOperand(evtValue, mathObj) {
+  if (Number(evtValue) || evtValue === '.') {
+    if (evtValue === '.') document.querySelector('.operand:focus').disabled = true;
+    if (!mathObj.operator) {
+      mathObj.firstOperand += evtValue;
+      displayResult(mathObj.firstOperand);
+    } else {
+      mathObj.secondOperand += evtValue;
+      displayResult(mathObj.secondOperand);
+    }
+  }
+}
+
+function getOperator(evtValue, operator, mathObj) {
+  if (evtValue === operator) {
+    const floatingPointBtn = document.querySelector('.operand:disabled');
+
+    if (floatingPointBtn) floatingPointBtn.disabled = false;
+    if (mathObj.firstOperand && mathObj.secondOperand) {
+      const result = operate(mathObj);
+      displayResult(result);
+      mathObj.operator = evtValue;
+    } else if (mathObj.firstOperand) {
+      mathObj.operator = evtValue;
+    }
+  }
+}
+
+function getOperation(e, mathObj) {
+  const eventValue = (e.type === 'click') ? e.target.textContent : e.key;
+  const operators = ['+', '-', '/', '*'];
+
+  getOperand(eventValue, mathObj);
+
+  operators.forEach((operator) => getOperator(eventValue, operator, mathObj));
+}
+
 const equalBtn = document.querySelector('#equal');
 const clearBtn = document.querySelector('#clear');
 const operation = {
@@ -63,25 +102,18 @@ const operation = {
   operator: '',
 };
 
-function findOperands(e) {
-  const userValue = e.target.textContent;
-  const operandBtn = e.target;
+// Find clicked operands
+const calcItems = document.querySelectorAll('.calc-item');
 
-  if (!operation.operator) {
-    if (userValue === '.') operandBtn.disabled = true;
-    operation.firstOperand += userValue;
-    displayResult(operation.firstOperand);
-  } else {
-    if (userValue === '.') operandBtn.disabled = true;
-    operation.secondOperand += userValue;
-    displayResult(operation.secondOperand);
-  }
-}
+calcItems.forEach((item) => {
+  item.addEventListener('click', (e) => {
+    getOperation(e, operation);
+  });
+});
 
-const operands = document.querySelectorAll('.operand');
-
-operands.forEach((operand) => {
-  operand.addEventListener('click', findOperands);
+document.addEventListener('keydown', (e) => {
+  e.preventDefault();
+  getOperation(e, operation);
 });
 
 // Clear all variables and display default result
@@ -93,7 +125,20 @@ clearBtn.addEventListener('click', () => {
   displayResult(0);
 });
 
-equalBtn.addEventListener('click', (e) => {
+document.addEventListener('keydown', (e) => {
+  if (e.key === '=' || e.key === 'Enter') {
+    const result = operate(operation);
+    displayResult(result);
+  } else if (e.key === 'c') {
+    const keys = Object.keys(operation);
+    keys.forEach((key) => {
+      operation[key] = '';
+    });
+    displayResult(0);
+  }
+});
+
+equalBtn.addEventListener('click', () => {
   const result = operate(operation);
   displayResult(result);
 });
