@@ -11,25 +11,14 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if (a < 0 && b < 0) return 'Zero is not divisible!';
+  if (a === 0 || b === 0) return 'LMAO!';
   return a / b;
 }
 
-const operation = {
-  firstOperand: '',
-  secondOperand: '',
-  operator: '',
-};
-
-const operate = (operation) => {
-  const a = operation.firstOperand;
-  const { operator } = operation;
-  let b = operation.secondOperand;
-
-  // ** If client didn't specify second operand
-  if (!b) {
-    b = a;
-  }
+function operate(mathObj) {
+  const a = +mathObj.firstOperand;
+  const { operator } = mathObj;
+  const b = +mathObj.secondOperand;
 
   let result = 0;
   switch (operator) {
@@ -52,22 +41,50 @@ const operate = (operation) => {
     default:
       return 'You did\'nt specify an operator';
   }
+  mathObj.firstOperand = result;
+  mathObj.secondOperand = '';
 
-  return result;
-};
-
-function displayResult(result) {
-  const displayScreen = document.querySelector('.calculator-display');
-
-  displayScreen.textContent = result;
   return result;
 }
 
+function displayResult(result) {
+  let operationResult = result;
+  const displayScreen = document.querySelector('.calculator-display');
+
+  if (Number.isSafeInteger()) operationResult = Math.round(operationResult * 10) / 10;
+  displayScreen.textContent = operationResult;
+}
+
 const equalBtn = document.querySelector('#equal');
+const clearBtn = document.querySelector('#clear');
+const operation = {
+  firstOperand: '',
+  secondOperand: '',
+  operator: '',
+};
+
+function findOperands(e) {
+  const userValue = e.target.textContent;
+  const operandBtn = e.target;
+
+  if (!operation.operator) {
+    if (userValue === '.') operandBtn.disabled = true;
+    operation.firstOperand += userValue;
+    displayResult(operation.firstOperand);
+  } else {
+    if (userValue === '.') operandBtn.disabled = true;
+    operation.secondOperand += userValue;
+    displayResult(operation.secondOperand);
+  }
+}
+
+const operands = document.querySelectorAll('.operand');
+
+operands.forEach((operand) => {
+  operand.addEventListener('click', findOperands);
+});
 
 equalBtn.addEventListener('click', (e) => {
-  const clickedOperator = document.querySelector('.clicked');
-  clickedOperator.classList.remove('clicked');
   const result = operate(operation);
   displayResult(result);
 });
