@@ -45,8 +45,11 @@ body{
 .calculator-main .fifth-row button:first-child{
     flex: 2.18;
 }
-.calculator-main div button:last-child{
+div button:last-child{
     background-color: #FF8F1F;
+}
+.operator:focus{
+    background-color: #f59e47;
 }
 
 #clear,
@@ -55,6 +58,14 @@ body{
     background-color: dodgerblue;
 }
 
+#equal:active{
+    background-color: #f59e47;
+}
+
+.operand:active{
+    background-color: #33b9bb;
+
+}
 .calc-item{
     flex: 1 0 0;
     font-size: 22px;
